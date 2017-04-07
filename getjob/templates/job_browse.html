@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+    .modal-content{
+           width:300px;
+           height:120px;
+          }
+    .notice{
+       text-align:center;
+       }
+</style>
+{% endblock %}
+{% block script %}
+<script language="JavaScript">
+    //申请职位
+    function job_apply(){
+       var job_id = $("#job_id").val();
+         //alert(job_id)
+       $.post("/getjob/job/apply",{"job_id":job_id},
+           function(result){
+             //alert(result);
+           // $(".modal-body").remove();
+           notice = "<h4 class=\"notice\">"+result+"</h4>";
+            $(".modal-body").html(notice);
+           });
+    }
+     //收藏职位
+     function job_collect(){
+          var job_id = $("#job_id").val();
+           //alert(job_id);
+          $.post("/getjob/job/collect",{"job_id":job_id},
+                 function(result){
+                     notice = "<h4 class=\"notice\">"+result+"</h4>";
+                     $(".modal-body").html(notice);
+                   });
+            }
+</script>
+{% endblock %}
+{% block body %}
+<div class="container-fluid">
+<div class="row">
+    <div class="bg-color-wh job-detail col-md-8 col-lg-8">
+        <div class="job-detail">
+        <h4> 公司:{{ company }}</h4>
+
+        <h5>公司地址:{{ company.address }}</h5>
+
+        <h5>联系方式:{{ company.company_telephone_number }}</h5>
+        <h5>职位描述:</h5>
+        <p>{{ job.job_description }}</p>
+           <input type="hidden" id="job_id" name="job_id" value="{{ job_id }}">
+           <button type="submit" id="job_apply" onclick="job_apply()" class="btn btn-primary"
+                   data-toggle="modal" data-target="#myModal">
+               申请职位
+           </button>
+             <button class="glyphicon glyphicon-heart btn btn-primary"  onclick="job_collect()"
+                     data-toggle="modal" data-target="#myModal">
+              收藏
+             </button>
+        </div>
+           <div class="other-jobs">
+               <p class="border-bottom">该公司其他职位</p>
+                   {% for job in other_jobs %}
+               <p><a href="{% url 'job_browse' job.id  %}">{{ job.job_type }}</a></p>
+               <p><span>{{ job.get_salary_display  }}</span>
+                  <span>{{ job.salary }}</span>
+               </p>
+               {% endfor %}
+       </div>
+  </div>
+    <div class="bg-color-wh col-md-3 col-lg-3">
+        <p>公司logo</p>
+        <p>网站</p>
+    </div>
+</div>
+</div>
+
+<!--Modal窗口-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+         </div>
+         <div class="modal-body">
+         </div>
+      </div>
+   </div>
+</div>
+
+{% endblock %}
+
+
+

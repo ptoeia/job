@@ -1,0 +1,58 @@
+{% extends "base_company.html" %}
+{% block style %}
+<style type="text/css">
+  a:link {
+        text-decoration:none;
+        color: white;
+         }
+  select {
+       width:120px;
+        }
+</style>
+{% endblock %}
+{% block script %}
+<script>
+     $(document).ready(function(){
+       $.get("/getjob/prov",null,
+                 function(data){
+         $.each(data,function(i,val){
+           $("#provincex").append($("<option/>",{
+             value:val.area_code,
+             text:val.area_name
+     }));
+   });
+ });
+//})
+//   $(document).ready(function(){
+     //$("#id_city>option").remove()
+       $("#provincex").change(function(){
+         var province = $("#provincex").val()
+           //alert(province)
+         $.post("/getjob/city",{'province':province},
+                 function(citys){
+                 //alert(citys)
+           $("#cityx>option").remove()
+           $.each(citys,function(i,val){
+              $("#cityx").append($("<option/>",{
+                 value:val.area_code,
+                 text:val.area_name
+                 }));
+           });
+         });
+      });
+    })
+</script>
+{% endblock  %}
+{% block content %}
+
+   <form  method="post" action="">
+        {% csrf_token %}
+       {{ new_job_form.as_p }}
+        <button type="submit" class="btn btn-primary">保存</button>
+   </form>
+<!--{{ company.address }}
+{{ company.name }}
+{{ company.id }}
+{{ company.publisher }}
+</div>-->
+{% endblock %}

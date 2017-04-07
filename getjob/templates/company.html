@@ -1,0 +1,25 @@
+{% extends "base_company.html" %}
+
+{% block content %}
+       <h4 class="border-bottom">公司信息</h4>
+        <form enctype="multipart/form-data" method="POST" action="">
+             {% csrf_token %}
+          {% for field in new_company.visible_fields %}
+              {% if field.name == 'logo_thumbnail' %}
+               {{ field.label_tag }}
+               {{ field }}
+               <img src="{{ field.url}}" />
+              {{ new_company.logo_thumbnail.initial_url }}
+               {{ field..errors }}
+              {% else %}
+                <p> {{ field.label_tag }}
+                    {{ field }}
+                    {{ field.errors }}
+               </p>
+             {% endif %}
+             {% endfor %}
+
+            <button type="submit" class="btn btn-primary">保存</button>
+        </form>
+
+{% endblock %}

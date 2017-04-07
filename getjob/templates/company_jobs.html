@@ -1,0 +1,95 @@
+{% extends "base_company.html" %}
+{% block script %}
+  <script>
+  //删除职位
+    $(document).ready(function(){
+      $(".delete_job").click(function(){
+        var job_id = $(this).attr('id');
+        //alert(job_id);
+        $(".btn").click(function(){
+          var choice = $(this).attr('id');
+          //alert(choice);
+          //alert(job_id);
+          if(choice=='confirm'){
+            $.post("/getjob/e/job/delete",{"job_id":job_id},
+               function(result){
+                 //alert(result);
+                 //alert(job_id);
+               })
+          };
+        });
+      });
+    });
+  </script>
+{% endblock %}
+{% block style %}
+  <style>
+      .modal-body {
+        margin-top:10px;
+        margin-left:80px;
+      }
+
+  </style>
+{% endblock %}
+
+{% block content %}
+       <h4 class="border-bottom">职位管理</h4>
+       <a  class="btn btn-warning" href="{% url 'job_publish' %}" >发布新职位</a>
+       <div id="job_list" style="margin-top:10px">
+           <table  class="table table-hover table-condensed ">
+               <thead >
+                  <tr >
+                     <th>序号</th>
+                     <th>公司</th>
+                     <th>职位</th>
+                      <th>工资</th>
+                     <th>更新日期</th>
+                      <th>申请人数</th>
+                     <th>编辑</th>
+                      <th>删除</th>
+                  </tr>
+               </thead>
+               <tbody>
+               {% for job in job_list %}
+                  <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ job.publisher.name}}</td>
+                      <td>{{ job.job_type }}</td>
+                      <td>{{ job.get_salary_display }}</td>
+                      <td>{{ job.date_updated|date:"Y-m-d" }}</td>
+                      <td>{{ job.num }} </td>
+                      <td><a href="{% url 'job_edit' job.id %}">编辑</a></td>
+                      <td><a class="delete_job" id="{{ job.id }}"
+                             data-toggle="modal" data-target="#myModal">删除</a></td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+           </table>
+       </div>
+
+       <ul class="pagination paginatioin-sm">
+            {% if job_list.has_previous %}
+               <a href="?page={{ job_list.previous_page_number }}">Prev</a>
+           {% endif %}
+           {%　for page in page_list %}
+               <a href="?page={{ page }}">{{ page }}</a>
+           {% endfor %}
+           {% if job_list.has_next %}
+               <a href="?page={{ job_list.next_page_number }}">Next</a>
+           {% endif %}
+       </ul>
+<!--模态窗-->
+     <div class="modal fade" id="myModal" #tabindex="-1" #role="dialog" #aria-labelledby="myModalLabel" #aria-hidden="true">
+      <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-body">
+                       <h4 class="modal-title">确认要删除？</h4>
+                       <br>
+                       <button type="submit" class="btn" id="confirm"><a href="">确认</a></button>
+                       <button type="submit" class="btn" id="cancel"><a href="">取消</a></button>
+                 </div>
+              </div>
+          </div>
+      </div>
+      </div>
+{% endblock %}

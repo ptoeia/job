@@ -1,0 +1,18 @@
+{% extends "base_applicant.html" %}
+
+{% block content %}
+<h4 class="border-bottom" >账户设置</h4>
+       <form role="form">
+           {% csrf_token %}
+          <label>{{ form.email.label_tag }}</label>
+              {{ form.email }}
+           <span> {{ form.email.errors }}</span>
+            <label>{{ form.phone.label_tag }}</label>
+              {{ form.phone }}
+           <span> {{ form.phone.errors }}</span>
+          <input type="submit" class="btn" value="保存">
+       </form>
+
+
+
+{% endblock %}

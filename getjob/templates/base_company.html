@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <div class=" col-md-2 col-lg-2">
+      <div class="bg-color-gray">
+         <ul class="nav nav-tabs nav-stacked">
+             <li>
+                 <a href="{% url 'company' %}" style="color:black">
+                 <span class="glyphicon glyphicon-home"> 公司信息</span>
+                 </a>
+             </li>
+             <li>
+                 <a href="{% url 'company_jobs' %}" style="color:black">
+                 <span class="glyphicon glyphicon-list"> 职位管理</span>
+                 </a>
+             </li>
+             <li>
+                 <a href="{% url 'resume' %}" style="color:black">
+                     <span class="glyphicon glyphicon-file"> 简历管理</span>
+                 </a>
+             </li>
+             <li><a href="#" style="color:black">
+                 <span class="glyphicon glyphicon-envelope"> 收件箱</span>
+                 </a>
+             </li>
+             </ul>
+      </div>
+        <div class="navbar-collapse  blog-sidebar">
+            <ul class="nav" >
+
+            </ul>
+       </div>
+    </div>
+
+    <div class=" col-md-10 col-lg-10 column bg-color-gray">
+                {% block content %}
+                {% endblock %}
+    </div>
+{% endblock %}

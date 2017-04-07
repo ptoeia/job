@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-datepicker.js"></script>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/bootstrap/css/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="/static/upload/css/uploadify.css" type="text/css" rel="stylesheet" />
+    <link rel='stylesheet' type='text/css' href='/static/upload/css/jquery.Jcrop.min.css' />
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+$("#myModal").on("hidden.bs.modal", function() {
+    $(this).removeData("bs.modal");
+});
+
+$("#kaka").click(function(){
+    alert("no");
+})
+$(document).ready(function(){
+$("#tata").click(function(){
+    alert("no");
+});
+});
+</script>
+  </head>
+ <body>
+ <a id="kaka" href="www.baidu.com">hehei</a>
+ <button id="tata">click</button>
+ <div>
+                 {% for job in job_list %}
+                  {{ job.job_type }}
+     {{ job.get_salary_display }}
+      {{ job.count }}
+                  {% endfor %}
+  {{% for each in count %}
+     {{ each.position_id }}
+     {% endfor %}
+ </div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close"
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+               模态框（Modal）标题
+            </h4>
+         </div>
+         <div class="modal-body">
+            在这里添加一些文本
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default"
+               data-dismiss="modal">关闭
+            </button>
+            <button type="button" class="btn btn-primary">
+               提交更改
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+</div>
+</body>
+</html>
+
+
+
+
+      <!--模态窗口代码,没成功，界面无法显示
+      <div #class="modal fade" id="myModal" #tabindex="-1" #role="dialog" #aria-labelledby="myModalLabel" #aria-hidden="true">
+      <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header" style="border-bottom:1px solid blue;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                     <h4 class="modal-title">职位发布</h4>
+                 </div>
+                 <div class="modal-body">
+                     <form  method="post" action="">
+                       {{ new_job.as_p }}
+                       <button type="submit" class="btn">保存</button>
+                       <button type="submit" class="btn"><a href="">关闭</a></button>
+                     </form>
+                 </div>
+              </div>
+          </div>
+      </div>
+jQuery(function($){
+          $("input#id_email").blur(function(){
+          var email= $("input#id_email").val();
+          $.get("/getjob/email",{'input_email':email},function(result){
+           $("#email-check").html(result)
+            });
+            });
+
+   $jquery(function($){
+      //val province = $("#province").val();
+       $.get("/getjob/city",null,
+                 function(data){
+      var optionHTML="";
+      //var data = eval("("+data+")");
+        $.each(data,function(i,val){
+        var province = data[i];
+        //alert(province.area_code);
+        optionHTML+="<option value=\""+province.area_code+"\">"+province.area_name+"</option>";
+
+    //optionHTML+="</select>";
+    $("#prov").append(optionHTML);//将数据填充到省份的下拉列表中
+});
+});
+})
+      -->

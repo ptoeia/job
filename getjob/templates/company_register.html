@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block script %}
+<link href="/static/upload/css/uploadify.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="/static/upload/js/jquery.uploadify.min.js"></script>
+
+<script type="text/javascript" src="/static/upload/js/croppic.js"></script>
+<link rel='stylesheet' type='text/css' href='/static/upload/css/croppic.css' />
+<style>
+    #id_logo {
+        width:200px;
+        height:50px;
+    }
+</style>
+
+<script>
+ $(function(){
+    var cropperOptions = {
+			modal:true
+		}
+    var cropperHeader = new Croppic('id_logo')
+    })
+
+</script>
+{% endblock %}
+
+{% block body %}
+   <div>
+       <h4 class="border-bottom">公司信息</h4>
+        <form enctype="multipart/form-data" method="POST" action="">
+             {% csrf_token %}
+            {% for field in new_company.visible_fields %}
+                <p> {{ field.label_tag }}
+                    {{ field }}<span>{{ field.errors }}</span>
+               </p>
+            {% endfor %}
+            <input class="btn btn-primary" type="submit" value="保存">
+            <button class="btn btn-primary" type="button" >取消</button>
+        </form>
+   </div>
+{% endblock %}

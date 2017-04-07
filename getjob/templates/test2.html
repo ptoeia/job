@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+   <meta charset="utf-8">
+   <title></title>
+       <style>
+       #log {height: 450px; overflow-y: scroll; background: #333; color: #aaa; padding: 10px}
+
+       </style>
+      <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+       <script type="text/javscript">
+       </script>
+      <script type="text/javascript">
+         function WebSocketTest()
+         {
+            if ("WebSocket" in window)
+            {
+                alert("您的浏览器支持 WebSocket!");
+                var project = document.getElementById('project');
+                var ip = project.options[project.selectedIndex].text;
+                $.get("/getjob/logtail",{'ip':ip},function(result){
+                    alert(result);
+                });
+
+                socket = new WebSocket("ws://" + "192.168.137.152:8888"+"/websocket/");
+                socket.onopen = function() {
+                     $("#log div").append("连接成功"+"<br>")
+                     var project = document.getElementById('project');
+                     var name = project.options[project.selectedIndex].text;
+                     //socket.send(name);
+                }
+                socket.onmessage = function(e) {
+                    //alert(e.data);
+                    $("#log div").append(e.data+"<br>");
+                    $("#log").scrollTop($("#log div").height() - $("#log").height());
+                }
+                // Call onopen directly if socket is already open
+                if (socket.readyState == WebSocket.OPEN) socket.onopen();
+            }
+            else
+            {
+               // 浏览器不支持 WebSocket
+               alert("您的浏览器不支持 WebSocket!");
+            }
+         }
+      </script>
+
+   </head>
+   <body>
+      <div id="sse">
+          <select id="project" onchange="WebSocketTest()">
+              <option>请选择</option>
+              <option>192.168.137.130</option>
+              <option>192.168.137.152</option>
+          </select>
+         <a href="javascript:WebSocketTest()">开始</a>
+      </div>
+
+      <div id="log">
+          <div>
+          </div>
+      </div>
+   </body>
+</html>

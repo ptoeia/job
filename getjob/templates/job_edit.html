@@ -1,0 +1,78 @@
+{% extends "base_company.html" %}
+{% block style %}
+<style type="text/css">
+  #a:link {
+  #      text-decoration:none;
+  #      #color: white;
+  #       }
+  #select {
+  #     width:120px;
+  #      }
+</style>
+{% endblock %}
+{% block script %}
+<script>
+//城市选择列表
+/*
+     $(document).ready(function(){
+
+       $.get("/getjob/prov",null,
+                 function(data){
+         $.each(data,function(i,val){
+           $("#prov").append($("<option/>",{
+             value:val.area_code,
+            text:val.area_name
+     }));
+   });
+ });
+//})
+//   $(document).ready(function(){
+     //$("#id_city>option").remove()
+       $("#prov").change(function(){
+         var province = $("#prov").val()
+           //alert(province)
+         $.post("/getjob/city",{'province':province},
+                 function(citys){
+                 //alert(citys)
+           $("#id_city>option").remove()
+           $.each(citys, function(i,val){
+              $("#id_city").append($("<option/>",{
+                 value:val.area_code,
+                 text:val.area_name
+                 }));
+           });
+         });
+      });
+    })*/
+</script>
+{% endblock  %}
+{% block body %}
+   {{ block.super }}
+<div class="col-md-9 col-lg-9">
+       <h4 class="border-bottom">职位编辑</h4>
+        <form method="POST" >
+             {% csrf_token %}
+        <p> {{ edit_job.job_type.label_tag }}
+            {{ edit_job.job_type }}
+            {{ edit_job.job_type.errors }}
+        </p>
+        <p> {{ edit_job.job_description.label_tag }}
+            {{ edit_job.job_description }}
+            {{ edit_job.job_description.errors }}
+        </p>
+        <p> {{ edit_job.salary.label_tag }}
+            {{ edit_job.salary }}
+            {{ edit_job.salary.errors }}
+        </p>
+        <p> {{ edit_job.city.label_tag }}
+            {{ edit_job.city }}
+            {{ edit_job.city.errors }}
+        </p>
+        <p> {{ edit_job.valid_period.label_tag }}
+            {{ edit_job.valid_period }}
+            {{ edit_job.valid_period.errors }}
+       </p>
+    <button class="btn" type="submit" >保存</button>
+    </form>
+</div>
+{%  endblock %}

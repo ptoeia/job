@@ -1,0 +1,71 @@
+{% extends "base_applicant.html" %}
+
+{% block script %}
+    <script src="/static/bootstrap/js/bootstrap-datepicker.js"></script>
+    <link href="/static/bootstrap/css/bootstrap-datepicker.css" rel="stylesheet">
+     <script >
+    jQuery(function($){
+       $("#id_birth").datepicker({
+       format: 'yyyy-mm-dd',
+       startView:'day',
+       maxViewMode:'day',
+       });
+       $(".form_datetime").append("<p>cceceefef</p>")
+       $("#form_datetime").append("<option>Y</option>")
+       })
+   </script>
+{% endblock %}
+
+{% block content %}
+      <h4 class="border-bottom">个人资料</h4>
+       <form method="POST" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+           {% for field in form.visible_fields %}
+           <P>{{ field.label_tag }}
+                      {{ field }}
+                <span>{{ field.errors }}</span>
+           </P>
+          {% endfor %}
+           <!--  <p>
+                  <label>用户名：</label>
+                  {{ form.username }}
+                  <span>{{ form.username.errors }} </span>
+            </p>
+            <p>
+                  <label>手机号码：</label>
+                  {{ form.mobilenumber }}
+                  <span>{{ form.mobilenumber.errors }} </span>
+            </p>
+            <p>
+                  <label>学历：</label>
+                  {{ form.education_degree }}
+                  <span>{{ form.username.errors }} </span>
+            </p>
+            <p>
+                  <label>生日：</label>
+                  {{ form.birth }}
+                  <span>{{ form.birth.errors }} </span>
+            </p>
+            <p>
+                  <label>性别：</label>
+                  {{ form.gender }}
+                  <span>{{ form.gender.errors }} </span>
+            </p>
+             <p>
+                  <label>地址：</label>
+                  {{ form.address }}
+                  <span>{{ form.address.errors }} </span>
+            </p>
+            <p>
+                  <label>工作经历：</label>
+                  {{ form.work_experiences}}
+                  <span>{{ form.work_experiences.errors }} </span>
+            </p>-->
+        <input type="submit" value="保存">
+        </form>
+    {{ path }}
+       </div>
+  </div>
+{% endblock %}
+<!--</body>
+</html>-->

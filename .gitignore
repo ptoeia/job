@@ -1,0 +1,5 @@
+.svn/
+getjob/migrations/
+.idea/workspace.xml
+.idea/
+*.pyc

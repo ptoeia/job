@@ -1,0 +1,22 @@
+{% extends "base_company.html" %}
+
+{% block content %}
+       <h4 class="border-bottom">简历管理</h4>
+       <div id="resume-list">
+         <p>简历</p>
+       </div>
+       <ul class="pagination pagination-sm">
+            {% if job_list.has_previous %}
+             <a href="?page={{ job_list.previous_page_number }}">上一页</a>
+           {% endif %}
+           {%　for page in page_list %}
+           <a href="?page={{ page }}">{{ page }}</a>
+            {% endfor %}
+           {% if job_list.has_next %}
+           <a href="?page={{ job_list.next_page_number }}">下一页</a>
+           {% endif %}
+       </ul>
+      </div>
+    </div>
+ </div>
+{% endblock %}
